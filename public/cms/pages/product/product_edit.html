@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/dialog/common.css" media="all">
+    <script src="../../layui/layui.js" type="text/javascript" rel="script"></script>
+    <script src="../../js/jquery-3.2.1.min.js" type="application/javascript"></script>
+</head>
+<body style="background:#fff;padding:10px">
+<form method="post" id="form" autocomplete="off">
+    <table class="wenzhang_bak" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td class="bgtt aright c888" width="100">商品名称</td>
+            <td>
+                <input type="text" id="name" class="inputall input200">
+            </td>
+        </tr>
+        <tr>
+            <td class="bgtt aright c888" width="100">商品单价</td>
+            <td>
+                <input type="text" id="price" class="inputall input150">
+            </td>
+        </tr>
+        <tr>
+            <td class="bgtt aright c888" width="100">商品库存</td>
+            <td>
+                <input type="text" id="stock" class="inputall input150">
+            </td>
+        </tr>
+        <tr>
+            <td class="bgtt aright c888" width="100">商品分类</td>
+            <td class="category_id">
+                <select id="category_id" class="inputselect" style="width:300px" disabled:>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="bgtt aright c888" width="100">商品图片</td>
+            <td>
+                <div class="layui-upload fl mat20">
+                    <button type="button" class="layui-btn" id="Upload_product_Img"></button>
+                    <p class="Comment-preview fr mar10 mal10" id="upload-product-preview">
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: 'http://hmapi.com/api/v1/category/all',
+            type: 'get',
+            dataType: 'json',
+            async: true,
+            success: function (data) {
+                var len = data.length;
+                $('#category_id')
+                for(var i = 0; i < data.length; i++) {
+
+                    $("#category_id").append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");//新增
+                }
+            }
+        });
+        layui.use(['layer','upload'], function () {
+            var $ = layui.jquery, layer = layui.layer, upload = layui.upload;
+            upload.render({
+                elem: '#Upload_product_Img'
+                , url: 'http://hmapi.com/api/v1/Upload/uploadimg'
+                , ext: 'jpg|png|gif'
+                , auto: true // 自动上传
+                , multiple: true
+                , choose: function (obj) {
+                    $('#upload-product-preview').empty();
+                }
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#upload-product-preview').append('<img src="' + result + '" alt="' + file.name + '" style="border:1px solid #ddd" height="55" width="55">')
+                    });
+
+                }
+                , done: function (res, index, upload) {
+                    if (res.code == 1) {
+                        $('#upload-product-preview').append('<input type="hidden" id="main_img_url" value="' + res.path + '">');
+                    }
+                }
+                , error: function () {
+                    layer.msg('上传失败！');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

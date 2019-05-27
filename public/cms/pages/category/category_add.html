@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/dialog/common.css" media="all">
+    <script src="../../layui/layui.js" type="text/javascript" rel="script"></script>
+    <script src="../../js/jquery-3.2.1.min.js" type="application/javascript"></script>
+</head>
+<body style="background:#fff;padding:10px">
+<form method="post" id="form" autocomplete="off">
+    <table class="wenzhang_bak" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td class="bgtt aright c888" width="100">分类名称</td>
+            <td class="category_id">
+                <input type="text" id="name" class="inputall input150">
+            </td>
+        </tr>
+    </table>
+    <div class="acenter mat20">
+        <input type="button" value="提 交" class="tjbtn btn_category" data-id="">
+    </div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        layui.use('layer', function () {
+            var $ = layui.jquery, layer = layui.layer;
+            var body = $(window.parent.frames["layui-layer-iframe1"].document);
+
+            $(".btn_category").click(function () {
+                var name = body.find('#name').val();  // 操作说明
+                if (name == '') {
+                    layer.msg('请填写名称');
+                    return false;
+                }
+                console.log(name);
+                $.ajax({
+                    url: 'http://hmapi.com/api/v1/category/addCategory',
+                    type: 'POST',
+                    dataType: 'json',
+                    async: true,
+                    data: {
+                        'name': name
+                    },
+                    success: function (data) {
+                        if (data.code == 201 && data.errorCode == 0) {
+                            layer.msg('添加成功啦！', {
+                                icon: 6,
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            }, function () {
+                                parent.location.reload();
+                            });
+                        } else {
+                            layer.msg(data.msg + ',异常代码:' + data.errorCode, {
+                                icon: 5,
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            }, function () {
+                                parent.location.reload();
+                            });
+                        }
+                    }
+                });
+                return false;
+            })
+        })
+    });
+</script>
+</body>
+</html>

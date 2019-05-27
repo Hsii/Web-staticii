@@ -1,0 +1,88 @@
+.wenzhang_bak td {
+    padding: 5px 8px;
+    border: 1px #e8e8e8 solid;
+    height: 34px;
+    line-height: 28px;
+    font-size: 13px;
+}
+.bgtt {
+    background: #f6f6f6;
+}
+.c888 {
+    color: #888 !important;
+}
+input:focus {
+    border-color: #f69;
+    outline: none;
+}
+.inputall {
+    line-height: 30px;
+    border: 1px #ddd solid;
+    border-radius: 2px;
+    padding: 2px 8px;
+    font-size: 13px;
+    background: #fff;
+    color: #555;
+}
+.input150 {
+    width: 150px;
+}
+.input200 {
+    width: 200px;
+}
+.inputselect {
+    height: 36px;
+    border: 1px #ddd solid;
+    border-radius: 2px;
+    padding: 4px;
+    font-size: 13px;
+    background: #fff;
+    color: #555;
+}
+.acenter {
+    text-align: center;
+}
+.mat20 {
+    margin-top: 20px !important;
+}
+.tjbtn {
+    background: #f69;
+    width: 100px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 2px;
+    color: #fff;
+    border: 0;
+    border-top-color: currentcolor;
+    border-right-color: currentcolor;
+    border-bottom-color: currentcolor;
+    border-left-color: currentcolor;
+    font-size: 15px;
+    cursor: pointer;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.mat20 {
+    margin-top: 20px !important;
+}
+#Upload_product_Img {
+    background-color: #FFFFFF;
+    border: 1px solid #E6E6FA;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    background-image: url("../../imgs/upload.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.mar10 {
+    margin-right: 10px !important;
+}
+.mal10 {
+    margin-left: 10px !important;
+}
